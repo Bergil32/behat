@@ -1,43 +1,14 @@
-Environment for running Behat tests.
+Additional files for Behat image.
 ============
 
 [![](https://images.microbadger.com/badges/version/bergil/docker-behat.svg)](https://microbadger.com/images/bergil/docker-behat) [![](https://images.microbadger.com/badges/image/bergil/docker-behat.svg)](https://microbadger.com/images/bergil/docker-behat)
 
-
-This image is based on [Alpine Linux](https://hub.docker.com/_/alpine/) with PHP7 and could be used to test Docker and non-Docker websites. 
-
-This image includes (composer update is possible):
-
-[Behat](https://packagist.org/packages/behat/behat)
-
-[Mink](https://packagist.org/packages/behat/mink)
-
-[Mink extension](https://packagist.org/packages/behat/mink-extension)
-
-[Mink goutte driver](https://packagist.org/packages/behat/mink-goutte-driver)
-
-[Mink selenium2 driver](https://packagist.org/packages/behat/mink-selenium2-driver)
-
-[Drupal extension](https://packagist.org/packages/drupal/drupal-extension)
-
-[Guzzle](https://packagist.org/packages/guzzlehttp/guzzle)
-
-[PHP Unit](https://packagist.org/packages/phpunit/phpunit)
-
-[Faker](https://packagist.org/packages/fzaninotto/faker)
-
-[PHPspec2-expect](https://packagist.org/packages/bossa/phpspec2-expect)
-
-[Behat cucumber json formatter](https://packagist.org/packages/vanare/behat-cucumber-json-formatter)
-
-Also, it uses official [selenium/standalone-chrome](https://github.com/SeleniumHQ/docker-selenium) image.
+[Image page on Docker Hub.](https://hub.docker.com/r/bergil/docker-behat/)
 
 ### Prerequirements
 
-* Clone a repository.
-```
-git clone https://github.com/Bergil32/behat.git
-```
+* Clone this repository.
+
 * Put your custom contexts into "features/bootstrap/" folder if needed.
 
 * Configure behat.yml for your custom contexts.
@@ -155,5 +126,3 @@ drupal:
 * Screenshots will be uploaded to [https://wsend.net/](https://wsend.net/).
 
 ##### For more information read entrypoint.sh, docker-compose.behat.yml and test.sh. Nearly each code and config line has comments.
-
-#### Additional thanks to [Serge Skripchuk](https://www.drupal.org/u/idtarzanych) for his help.

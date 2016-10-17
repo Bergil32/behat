@@ -27,7 +27,7 @@ services:
       - nginx
       - mariadb
       - php
-     depends_on: # Set after what services behat container shall start.
+    depends_on: # Set after what services behat container shall start.
       - selenium
       - nginx
       - php

@@ -9,7 +9,7 @@ class ScreenshotContext extends RawDrupalContext
 {
     protected $scenarioTitle = null;
     protected static $wsendUser = null;
-    protected $basicScreenshotFolder = 'artifacts/screenshots';
+    protected $basicScreenshotFolder = '/srv/artifacts/screenshots';
 
     /**
      * Guzzle client.
@@ -23,7 +23,7 @@ class ScreenshotContext extends RawDrupalContext
      */
     public function __construct()
     {
-          // Initialize Guzzle client.
+        // Initialize Guzzle client.
         $this->guzzle = new Client();
     }
 
@@ -75,21 +75,19 @@ class ScreenshotContext extends RawDrupalContext
      */
     public function takeAScreenshot()
     {
-        if (!$this->isJavascript()) {
-            print "Screenshot cannot be taken from non javascript scenario.\n";
+        if ($this->isJavascript()) {
 
-            return;
+            $screenshot = $this->getSession()->getDriver()->getScreenshot();
+
+            $filename = $this->getScreenshotFilename();
+            file_put_contents($filename, $screenshot);
+
+            $url = $this->getScreenshotUrl($filename);
+
+            print sprintf("Screenshot is available :\n%s", $url);
+            $this->writeUrl($url);
         }
 
-        $screenshot = $this->getSession()->getDriver()->getScreenshot();
-
-        $filename = $this->getScreenshotFilename();
-        file_put_contents($filename, $screenshot);
-
-        $url = $this->getScreenshotUrl($filename);
-
-        print sprintf("Screenshot is available :\n%s", $url);
-        $this->writeUrl($url);
     }
 
     protected function getScreenshotUrl($filename)
@@ -100,19 +98,19 @@ class ScreenshotContext extends RawDrupalContext
 
         // Send screenshot to Wsend.
         $response = $this->guzzle->post(
-          'https://wsend.net/upload_cli',
-          [
-            'multipart' => [
-              [
-                'name' => 'uid',
-                'contents' => ScreenshotContext::$wsendUser,
-              ],
-              [
-                'name' => 'filehandle',
-                'contents' => fopen($filename, 'r'),
-              ],
-            ],
-          ]
+                'https://wsend.net/upload_cli',
+                [
+                        'multipart' => [
+                                [
+                                        'name' => 'uid',
+                                        'contents' => ScreenshotContext::$wsendUser,
+                                ],
+                                [
+                                        'name' => 'filehandle',
+                                        'contents' => fopen($filename, 'r'),
+                                ],
+                        ],
+                ]
         );
 
         return $response->getBody();
@@ -121,16 +119,16 @@ class ScreenshotContext extends RawDrupalContext
     protected function getWsendUser()
     {
         return $this
-          ->guzzle
-          ->post(
-            'https://wsend.net/createunreg',
-            [
-              'form_params' => [
-                'start' => 1,
-              ],
-            ]
-          )
-          ->getBody();
+                ->guzzle
+                ->post(
+                        'https://wsend.net/createunreg',
+                        [
+                                'form_params' => [
+                                        'start' => 1,
+                                ],
+                        ]
+                )
+                ->getBody();
     }
 
     protected function getScreenshotFilename()

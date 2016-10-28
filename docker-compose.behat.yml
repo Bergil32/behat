@@ -7,9 +7,6 @@ services:
       - /dev/shm:/dev/shm
     links: # Link selenium with webserver container.
       - nginx
-    environment: # Sets screen width and height for testing environment. Default is 1360 x 1020.
-      - SCREEN_WIDTH=1920
-      - SCREEN_HEIGHT=1080
 
   behat:
     image: bergil/docker-behat
@@ -27,8 +24,3 @@ services:
       - nginx
       - mariadb
       - php
-    depends_on: # Set after what services behat container shall start.
-      - selenium
-      - nginx
-      - php
-      - mariadb

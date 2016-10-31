@@ -3,8 +3,8 @@ version: "2"
 services:
   selenium:
     image: selenium/standalone-chrome
-    volumes:
     restart: on-failure:5
+    volumes:
       - /dev/shm:/dev/shm
 
   behat:

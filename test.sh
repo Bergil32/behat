@@ -15,3 +15,6 @@ docker-compose -f docker-compose.behat.yml up -d
 
 # Run tests inside Behat container.
 docker-compose -f docker-compose.behat.yml exec behat /srv/entrypoint.sh "$BEHAT_PARAMETERS"
+
+# Stop and remove containers.
+docker-compose -f docker-compose.behat.yml down

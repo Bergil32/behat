@@ -6,8 +6,6 @@ services:
     volumes:
     restart: on-failure:5
       - /dev/shm:/dev/shm
-    links: # Link selenium with webserver container.
-      - nginx
 
   behat:
     image: bergil/docker-behat
@@ -18,10 +16,5 @@ services:
       - {some path}/behat.yml:/srv/behat.yml # Mount behat.yml file as /srv/behat.yml.
       - {some path}/features:/srv/features # Mount features folder as /srv/features.
       - {some path}/artifacts:/srv/artifacts # Mount artifacts folder as /srv/artifacts.
-      - {some path}/drupal8:/drupal  # Mount drupal root directory as /drupal (optional).
+      - {some path}/drupal8:/drupal # Mount drupal root directory as /drupal (optional).
      # - {some path}/composer.json:/srv/composer.json # Mount composer.json as /srv/composer.json for composer update (optional).
-    links: # Link behat with selenium, webserver, database and web containers.
-      - selenium
-      - nginx
-      - mariadb
-      - php

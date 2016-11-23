@@ -47,6 +47,6 @@ default:
       active_image_drivers: [local, upload_pie]
       image_drivers:
         local:
-          screenshot_directory: artifacts/screenshots
+          screenshot_directory: %paths.base%/artifacts/screenshots
         upload_pie:
           expire: '1w' # possible values: '30m', '1h', '6h', '1d', '1w'

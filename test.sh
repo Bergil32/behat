@@ -13,6 +13,9 @@ fi
 # Start Behat and Selenium server containers
 docker-compose -f docker-compose.behat.yml up -d
 
+# Additional time for Selenium.
+sleep 2
+
 # Run tests inside Behat container.
 docker-compose -f docker-compose.behat.yml exec behat /srv/entrypoint.sh "$BEHAT_PARAMETERS"
 
